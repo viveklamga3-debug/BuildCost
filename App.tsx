@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback, useEffect } from 'react';
 import './App.css';
 import { 
@@ -148,7 +147,7 @@ const App: React.FC = () => {
         </section>
 
         <button className="calc-btn no-print" onClick={calculateEstimate}>
-          Recalculate Estimate
+          Calculate Estimate
         </button>
 
         {result && (
@@ -163,25 +162,25 @@ const App: React.FC = () => {
 
             <div className="results-grid">
               <div className="result-item">
-                <div className="result-item-label">Avg Rate per sq ft</div>
+                <div className="result-item-label">Cost per sq ft</div>
                 <div className="result-item-value">{formatCurrency(result.costPerSqFt)}</div>
               </div>
               <div className="result-item">
-                <div className="result-item-label">Total Labor (approx 40%)</div>
-                <div className="result-item-value">{formatCurrency(result.finalTotal * 0.4)}</div>
+                <div className="result-item-label">Base Construction Cost</div>
+                <div className="result-item-value">{formatCurrency(result.baseCost)}</div>
               </div>
               <div className="result-item">
-                <div className="result-item-label">Total Materials (approx 60%)</div>
-                <div className="result-item-value">{formatCurrency(result.finalTotal * 0.6)}</div>
+                <div className="result-item-label">Material Adjustment Cost</div>
+                <div className="result-item-value">{formatCurrency(result.materialAdjustment)}</div>
               </div>
               <div className="result-item">
-                <div className="result-item-label">Contingency Fund (5%)</div>
+                <div className="result-item-label">5% Contingency</div>
                 <div className="result-item-value">{formatCurrency(result.contingency)}</div>
               </div>
             </div>
 
             <div className="final-total-box">
-              <div className="final-total-label">Projected Grand Total</div>
+              <div className="final-total-label">Final Estimated Total</div>
               <div className="final-total-value">{formatCurrency(result.finalTotal)}</div>
               <p className="area-recap">for {area} sq. ft. build area</p>
             </div>
