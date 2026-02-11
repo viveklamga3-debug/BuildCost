@@ -1,20 +1,40 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
 
-# Run and deploy your AI Studio app
+# BuildCost – 2026 Construction Cost Estimator (India)
 
-This contains everything you need to run your app locally.
+![BuildCost Banner](https://buildcost-estimator.vercel.app/og-image.jpg)
 
-View your app in AI Studio: https://ai.studio/apps/drive/13fm8rHupq65_Lt4fc4WEAD3KZvszKQLj
+A high-performance, SEO-optimized residential construction cost calculator tailored for the Indian market in 2026. Built with React 19 and ESM-native architecture for lightning-fast delivery.
 
-## Run Locally
+## 🚀 One-Click Deploy
 
-**Prerequisites:**  Node.js
+Deploy your own version of BuildCost to Vercel in seconds:
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyour-username%2Fbuildcost-estimator)
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## ✨ Key Features
+
+- **2026 Price IndexING**: Real-time adjusted rates for Basic, Standard, and Premium construction.
+- **Tiered Multipliers**: Specific logic for Tier 1, Tier 2, and Tier 3 Indian cities.
+- **Material Customization**: Slider-based adjustments for luxury finishes.
+- **Professional Outputs**: Breakdown of Labor vs. Material costs.
+- **Print & Share**: Generate printable quotes or share via WhatsApp/Web Share API.
+- **SEO & AdSense Ready**: Optimized metadata and semantic HTML for high search rankings.
+
+## 🛠️ Tech Stack
+
+- **React 19**: Utilizing the latest concurrent rendering features.
+- **ESM native**: No heavy build steps; imports directly from ESM.sh.
+- **CSS3**: Responsive, variables-driven design with no external dependencies.
+- **Vercel**: Edge-optimized hosting and automated CI/CD.
+
+## 📦 Development
+
+1. Clone the repository.
+2. Open `index.html` in your browser (no build step required) OR run:
+   ```bash
+   npx serve .
+   ```
+
+## ⚖️ License
+
+Distributed under the MIT License. See `LICENSE` for more information.
