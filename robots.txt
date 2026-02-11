@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://buildcost-estimator.vercel.app/sitemap.xml
