@@ -30,6 +30,11 @@ const App: React.FC = () => {
   const [city, setCity] = useState<CityType>(CityType.TIER_2);
   const [materialAdjustmentPercent, setMaterialAdjustmentPercent] = useState<number>(5);
   const [result, setResult] = useState<CalculationResult | null>(null);
+  
+  // Feedback States
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [feedbackSent, setFeedbackSent] = useState(false);
+  const [feedbackRating, setFeedbackRating] = useState(0);
 
   const calculateEstimate = useCallback(() => {
     const numericArea = typeof area === 'string' ? parseFloat(area) || 0 : area;
@@ -85,6 +90,16 @@ const App: React.FC = () => {
     } else {
       alert("Sharing is not supported on this browser. You can copy the estimate manually.");
     }
+  };
+
+  const submitFeedback = (e: React.FormEvent) => {
+    e.preventDefault();
+    setFeedbackSent(true);
+    setTimeout(() => {
+      setShowFeedback(false);
+      setFeedbackSent(false);
+      setFeedbackRating(0);
+    }, 2000);
   };
 
   const renderCalculator = () => (
@@ -278,6 +293,62 @@ const App: React.FC = () => {
           © 2026 BuildCost India – Precision Estimating.
         </p>
       </footer>
+
+      {/* Floating Feedback Button */}
+      <button 
+        className="feedback-toggle no-print" 
+        onClick={() => setShowFeedback(true)}
+        aria-label="Give Feedback"
+      >
+        <span>💬</span>
+        <span className="feedback-text">Feedback</span>
+      </button>
+
+      {/* Feedback Modal */}
+      {showFeedback && (
+        <div className="modal-overlay no-print" onClick={() => setShowFeedback(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="close-modal" onClick={() => setShowFeedback(false)}>&times;</button>
+            
+            {feedbackSent ? (
+              <div className="success-feedback">
+                <div className="check-icon">✓</div>
+                <h3>Thank You!</h3>
+                <p>Your feedback helps us build a better tool.</p>
+              </div>
+            ) : (
+              <form onSubmit={submitFeedback}>
+                <h3>How are we doing?</h3>
+                <p>We'd love to hear your thoughts on the calculator.</p>
+                
+                <div className="rating-stars">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <span 
+                      key={star} 
+                      className={`star ${feedbackRating >= star ? 'active' : ''}`}
+                      onClick={() => setFeedbackRating(star)}
+                    >
+                      ★
+                    </span>
+                  ))}
+                </div>
+
+                <div className="input-group">
+                  <label>Comments</label>
+                  <textarea 
+                    placeholder="Tell us what you liked or how we can improve..."
+                    required
+                  ></textarea>
+                </div>
+
+                <button type="submit" className="calc-btn" style={{ marginTop: '1.5rem' }}>
+                  Submit Feedback
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
