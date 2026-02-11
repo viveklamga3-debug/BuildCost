@@ -1,9 +1,8 @@
-
-# BuildCost – 2026 Construction Cost Estimator (India)
+# BuildCost – Construction Cost Estimator (India)
 
 ![BuildCost Banner](https://buildcost-estimator.vercel.app/og-image.jpg)
 
-A high-performance, SEO-optimized residential construction cost calculator tailored for the Indian market in 2026. Built with React 19 and ESM-native architecture for lightning-fast delivery.
+A high-performance, SEO-optimized residential construction cost calculator tailored for the Indian market. Built with React 19 and ESM-native architecture for lightning-fast delivery.
 
 ## 🚀 One-Click Deploy
 
@@ -13,7 +12,7 @@ Deploy your own version of BuildCost to Vercel in seconds:
 
 ## ✨ Key Features
 
-- **2026 Price IndexING**: Real-time adjusted rates for Basic, Standard, and Premium construction.
+- **Automated Price Indexing**: Dynamic year-based labels and current market rates for Basic, Standard, and Premium construction.
 - **Tiered Multipliers**: Specific logic for Tier 1, Tier 2, and Tier 3 Indian cities.
 - **Material Customization**: Slider-based adjustments for luxury finishes.
 - **Professional Outputs**: Breakdown of Labor vs. Material costs.

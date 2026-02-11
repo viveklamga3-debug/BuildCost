@@ -6,27 +6,30 @@
     <meta name="theme-color" content="#2563eb">
     
     <!-- Primary Meta Tags -->
-    <title>BuildCost – 2026 Construction Cost Estimator | India House Construction Price</title>
-    <meta name="title" content="BuildCost – 2026 Construction Cost Estimator | India House Construction Price">
-    <meta name="description" content="Calculate house construction costs in India for 2026. Accurately estimate costs for Tier 1, 2, and 3 cities with adjustments for material quality and contingencies.">
-    <meta name="keywords" content="construction cost calculator india 2026, house building cost estimator, building material prices india, construction rate per sq ft, civil work cost, home budget india">
+    <title>BuildCost – Construction Cost Estimator | India House Construction Price</title>
+    <meta name="title" content="BuildCost – Construction Cost Estimator | India House Construction Price">
+    <meta name="description" content="Calculate house construction costs in India with the latest market rates. Accurately estimate costs for Tier 1, 2, and 3 cities with adjustments for material quality.">
+    <meta name="keywords" content="construction cost calculator india, house building cost estimator, building material prices india, construction rate per sq ft, civil work cost, home budget india">
     <meta name="author" content="BuildCost Team">
     <link rel="canonical" href="https://buildcost-estimator.vercel.app/" />
     <link rel="icon" type="image/png" href="https://buildcost-estimator.vercel.app/favicon.png">
 
+    <!-- Auto-Year Head Script -->
+    <script>
+      (function() {
+        const year = new Date().getFullYear();
+        document.title = "BuildCost – " + year + " Construction Cost Estimator | India";
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) metaDesc.setAttribute('content', metaDesc.getAttribute('content').replace('latest market rates', year + ' market rates'));
+      })();
+    </script>
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://buildcost-estimator.vercel.app/">
-    <meta property="og:title" content="BuildCost – 2026 Construction Cost Estimator | India">
-    <meta property="og:description" content="Accurate construction cost forecasting for residential projects in India. Plan your 2026 building project with confidence.">
+    <meta property="og:title" content="BuildCost – Construction Cost Estimator | India">
+    <meta property="og:description" content="Accurate construction cost forecasting for residential projects in India. Plan your building project with confidence.">
     <meta property="og:image" content="https://buildcost-estimator.vercel.app/og-image.jpg">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://buildcost-estimator.vercel.app/">
-    <meta property="twitter:title" content="BuildCost – 2026 Construction Cost Estimator | India">
-    <meta property="twitter:description" content="Accurate construction cost forecasting for residential projects in India. Plan your 2026 building project with confidence.">
-    <meta property="twitter:image" content="https://buildcost-estimator.vercel.app/og-image.jpg">
 
     <!-- AdSense Mandatory Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
@@ -36,33 +39,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- JSON-LD Structured Data for SEO -->
-    <script type="application/ld+json">
+    <script type="importmap">
     {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "BuildCost 2026 Estimator",
-      "operatingSystem": "Web",
-      "applicationCategory": "BusinessApplication",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "INR"
-      },
-      "description": "A free online construction cost calculator for Indian home builders in 2026."
+      "imports": {
+        "react": "https://esm.sh/react@^19.2.4",
+        "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+        "react/": "https://esm.sh/react@^19.2.4/",
+        "vite": "https://esm.sh/vite@^7.3.1",
+        "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.4"
+      }
     }
     </script>
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.4",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "vite": "https://esm.sh/vite@^7.3.1",
-    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.4"
-  }
-}
-</script>
 </head>
 <body>
     <div id="root"></div>

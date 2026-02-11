@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import './App.css';
 import { 
   ConstructionType, 
@@ -25,12 +25,15 @@ const AdSensePlaceholder: React.FC<{ slot?: string }> = ({ slot }) => (
 
 const App: React.FC = () => {
   const [view, setView] = useState<View>('calculator');
-  const [area, setArea] = useState<number | string>(1200);
-  const [type, setType] = useState<ConstructionType>(ConstructionType.STANDARD);
-  const [city, setCity] = useState<CityType>(CityType.TIER_2);
-  const [materialAdjustmentPercent, setMaterialAdjustmentPercent] = useState<number>(5);
+  const [area, setArea] = useState<number | string>('');
+  const [type, setType] = useState<ConstructionType | ''>('');
+  const [city, setCity] = useState<CityType | ''>('');
+  const [materialAdjustmentPercent, setMaterialAdjustmentPercent] = useState<number>(0);
   const [result, setResult] = useState<CalculationResult | null>(null);
   
+  // Automated Year Logic
+  const currentYear = useMemo(() => new Date().getFullYear(), []);
+
   // Feedback States
   const [showFeedback, setShowFeedback] = useState(false);
   const [feedbackSent, setFeedbackSent] = useState(false);
@@ -39,14 +42,14 @@ const App: React.FC = () => {
   const calculateEstimate = useCallback(() => {
     const numericArea = typeof area === 'string' ? parseFloat(area) || 0 : area;
     
-    if (numericArea <= 0) {
+    if (numericArea <= 0 || !type || !city) {
       setResult(null);
       return;
     }
 
-    const baseRate = ConstructionRates[type];
+    const baseRate = ConstructionRates[type as ConstructionType];
     const baseCost = numericArea * baseRate;
-    const cityMultiplier = CityMultipliers[city];
+    const cityMultiplier = CityMultipliers[city as CityType];
     const cityAdjustedCost = baseCost * cityMultiplier;
     
     const materialAdjustment = cityAdjustedCost * (materialAdjustmentPercent / 100);
@@ -67,9 +70,14 @@ const App: React.FC = () => {
   }, [area, type, city, materialAdjustmentPercent]);
 
   useEffect(() => {
-    if (view === 'calculator') calculateEstimate();
+    if (view === 'calculator') {
+      calculateEstimate();
+      document.title = `BuildCost – ${currentYear} Construction Cost Estimator | India`;
+    } else {
+      document.title = `${view.charAt(0).toUpperCase() + view.slice(1)} | BuildCost`;
+    }
     window.scrollTo(0, 0);
-  }, [view, calculateEstimate]);
+  }, [view, calculateEstimate, currentYear]);
 
   const handleAreaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
@@ -82,7 +90,7 @@ const App: React.FC = () => {
 
   const handleShare = async () => {
     if (!result) return;
-    const text = `BuildCost 2026 Estimate:\nTotal Area: ${area} sq ft\nEstimated Total: ${formatCurrency(result.finalTotal)}\nCheck yours at: ${window.location.href}`;
+    const text = `BuildCost ${currentYear} Estimate:\nTotal Area: ${area} sq ft\nEstimated Total: ${formatCurrency(result.finalTotal)}\nCheck yours at: ${window.location.href}`;
     if (navigator.share) {
       try {
         await navigator.share({ title: 'BuildCost Estimate', text, url: window.location.href });
@@ -113,7 +121,7 @@ const App: React.FC = () => {
               type="number"
               value={area}
               onChange={handleAreaChange}
-              placeholder="e.g. 1200"
+              placeholder="Enter plot area..."
               min="0"
             />
           </div>
@@ -125,6 +133,7 @@ const App: React.FC = () => {
               value={type}
               onChange={(e) => setType(e.target.value as ConstructionType)}
             >
+              <option value="" disabled>Select Quality...</option>
               <option value={ConstructionType.BASIC}>Basic (₹1,500/sq ft)</option>
               <option value={ConstructionType.STANDARD}>Standard (₹2,000/sq ft)</option>
               <option value={ConstructionType.PREMIUM}>Premium (₹2,800/sq ft)</option>
@@ -138,6 +147,7 @@ const App: React.FC = () => {
               value={city}
               onChange={(e) => setCity(e.target.value as CityType)}
             >
+              <option value="" disabled>Select City Tier...</option>
               <option value={CityType.TIER_1}>Tier 1 (Metro/Premium)</option>
               <option value={CityType.TIER_2}>Tier 2 (Developing City)</option>
               <option value={CityType.TIER_3}>Tier 3 (Town/Rural)</option>
@@ -161,14 +171,19 @@ const App: React.FC = () => {
           </div>
         </section>
 
-        <button className="calc-btn no-print" onClick={calculateEstimate}>
+        <button 
+          className="calc-btn no-print" 
+          onClick={calculateEstimate}
+          disabled={!area || !type || !city}
+          style={{ opacity: (!area || !type || !city) ? 0.6 : 1 }}
+        >
           Calculate Estimate
         </button>
 
         {result && (
           <section className="results-section">
             <div className="results-header">
-              <h2>Estimated Budget (2026 Index)</h2>
+              <h2>Estimated Budget ({currentYear} Index)</h2>
               <div className="action-buttons no-print">
                 <button onClick={() => window.print()} title="Print Quote">⎙ Print</button>
                 <button onClick={handleShare} title="Share Estimate">🔗 Share</button>
@@ -206,14 +221,14 @@ const App: React.FC = () => {
       <AdSensePlaceholder slot="middle-feed" />
 
       <article className="seo-content no-print">
-        <h2>Navigating Home Construction in India (2026)</h2>
+        <h2>Navigating Home Construction in India ({currentYear})</h2>
         <p>
-          Building a house is one of the most significant financial commitments a family makes. As we enter 2026, the construction landscape in India continues to evolve with smarter building materials and fluctuating labor costs. 
+          Building a house is one of the most significant financial commitments a family makes. As we move through {currentYear}, the construction landscape in India continues to evolve with smarter building materials and fluctuating labor costs. 
         </p>
         <div className="info-cards">
           <div className="info-card">
             <h3>📈 Market Pulse</h3>
-            <p>Cement and Steel prices are projected to rise by 4-6% annually. Planning now ensures you lock in better procurement rates.</p>
+            <p>Cement and Steel prices are projected to rise by 4-6% annually. Planning in {currentYear} ensures you lock in better procurement rates.</p>
           </div>
           <div className="info-card">
             <h3>🏗️ Build Smart</h3>
@@ -254,13 +269,13 @@ const App: React.FC = () => {
     disclaimer: renderLegal('Disclaimer', (
       <>
         <p>The information provided by BuildCost is for general guidance only. Prices for steel, sand, aggregate, and labor can change daily.</p>
-        <p>We do not guarantee the accuracy of these projections. Users should verify local market rates before commencing any construction activity.</p>
+        <p>We do not guarantee the accuracy of these projections. Users should verify local market rates before commencing any construction activity in {currentYear}.</p>
       </>
     )),
     about: renderLegal('About Us', (
       <>
         <p>BuildCost is an independent construction forecasting tool designed for the Indian market. Our goal is to empower homeowners with data-driven budget insights.</p>
-        <p>Our team consists of civil engineering enthusiasts who monitor market trends across Delhi, Mumbai, Bangalore, and rural India to provide the most accurate multipliers possible.</p>
+        <p>Our team consists of civil engineering enthusiasts who monitor market trends across Delhi, Mumbai, Bangalore, and rural India to provide the most accurate multipliers possible for the {currentYear} season.</p>
       </>
     )),
     contact: renderLegal('Contact Us', (
@@ -276,7 +291,7 @@ const App: React.FC = () => {
     <div className="container">
       <header className="header no-print" onClick={() => setView('calculator')} style={{ cursor: 'pointer' }}>
         <h1>BuildCost</h1>
-        <p>2026 Construction Cost Estimator for India</p>
+        <p>{currentYear} Construction Cost Estimator for India</p>
       </header>
 
       {view === 'calculator' ? renderCalculator() : pages[view as keyof typeof pages]}
@@ -290,7 +305,7 @@ const App: React.FC = () => {
           <button onClick={() => setView('disclaimer')}>Disclaimer</button>
         </div>
         <p className="copyright">
-          © 2026 BuildCost India – Precision Estimating.
+          © {currentYear} BuildCost India – Precision Estimating.
         </p>
       </footer>
 
