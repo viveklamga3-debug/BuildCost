@@ -9,6 +9,7 @@ import {
   CityMultipliers 
 } from './types';
 import { formatCurrency } from './utils/formatters';
+import { Analytics } from "@vercel/analytics/react";
 
 type View = 'calculator' | 'privacy' | 'terms' | 'disclaimer' | 'about' | 'contact';
 
@@ -279,6 +280,7 @@ const App: React.FC = () => {
           © 2026 BuildCost India – Precision Estimating.
         </p>
       </footer>
+      <Analytics />
     </div>
   );
 };
